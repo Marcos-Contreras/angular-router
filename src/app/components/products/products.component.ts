@@ -12,8 +12,9 @@ export class ProductsComponent {
 
   myShoppingCart: Product[] = [];
   total: number = 0;
-
   products: Product[] = [];
+  today = new Date();
+  date = new Date(2021, 1, 21);
 
   // INJECT THE STORE CART SERVICE
   // DEPENDENCY INJECTION ENGINE OF ANGULAR CREATES THE INSTANCE OF THE SERVICE SO WE DO NOT HAVE TO
