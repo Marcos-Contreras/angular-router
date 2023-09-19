@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Product } from './../../models/product.model';
+import { Product, CreateProductDTO, UpdateProductDTO } from './../../models/product.model';
 import { StoreService } from './../../services/store.service';
 import { ProductsService } from './../../services/products.service';
 
@@ -63,6 +63,46 @@ export class ProductsComponent {
       console.log('product: ', response);
       this.toggleProductDetail();
       this.productChosen = response;
+    });
+  }
+
+  createNewProduct() {
+    const newProduct: CreateProductDTO = {
+      title: 'Nuevo producto',
+      description: 'Nueva descripción',
+      images: ['https://placeimg.com/640/480/any'],
+      price: 1000,
+      categoryId: 2
+    }
+
+    this.ProductsService.create(newProduct)
+    .subscribe(response => {
+      console.log('created', response);
+      this.products.unshift(response);
+    });
+  }
+
+  updateProduct() {
+    const changedProduct: UpdateProductDTO = {
+      title: 'Title Updated',
+    }
+    const productId = this.productChosen.id;
+    this.ProductsService.update(productId, changedProduct)
+    .subscribe(response => {
+      console.log('updated', response);
+      const productIndex = this.products.findIndex(item => item.id === this.productChosen.id);
+      this.products[productIndex] = response;
+      this.productChosen = response;
+    });
+  }
+
+  deleteProduct() {
+    const id = this.productChosen.id;
+    this.ProductsService.delete(id)
+    .subscribe(() => {
+      const productIndex = this.products.findIndex(item => item.id === this.productChosen.id);
+      this.products.splice(productIndex, 1);
+      this.showProductDetail = false;
     });
 
   }
