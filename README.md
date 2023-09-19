@@ -1,6 +1,7 @@
 # AngularComponentsCourse
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.2.
+Developed based on the Angular components Platzi course. URL to the project: https://angular-components-c6d6f.web.app/
 
 ## Development server
 
