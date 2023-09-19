@@ -31,6 +31,8 @@ export class ProductsComponent {
   limit = 10;
   offset = 0;
 
+  statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
+
   // INJECT THE STORE CART SERVICE
   // DEPENDENCY INJECTION ENGINE OF ANGULAR CREATES THE INSTANCE OF THE SERVICE SO WE DO NOT HAVE TO
   // THE INSTANCE IS STORED AND IS BEING USED JUST ONCE (IT IS NOT CREATED BY EACH COMPONENT)
@@ -61,11 +63,17 @@ export class ProductsComponent {
   }
 
   onShowDetail(id: string) {
+    this.statusDetail = 'loading';
+    this.toggleProductDetail();
     this.ProductsService.getProduct(id)
     .subscribe(response => {
       console.log('product: ', response);
       this.toggleProductDetail();
       this.productChosen = response;
+      this.statusDetail = 'success';
+    }, error => {
+      window.alert(error);
+      this.statusDetail = 'error';
     });
   }
 
