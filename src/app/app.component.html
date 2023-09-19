@@ -1,15 +1,5 @@
 <app-nav></app-nav>
 
-<p>
-  <input type="text" [(ngModel)]="imgParent" />
-</p>
-<button (click)="toggleImage()">Toggle image</button>
-<p>{{ showImage }}</p>
-<!-- SENDING VARIABLE TO CHILD COMPONENT AND LISTENING TO loaded EVENT SO onLoaded is executed
-      $event IS USED TO RECEIVE PARAMS FROM CHILD COMPONENT -->
-<app-img *ngIf="showImage" [changeImage]="imgParent" (loaded)="onLoaded($event)">
-</app-img>
-
 <!-- <app-product *ngFor="let product of products" [product]="product" /> -->
 
 <app-products></app-products>

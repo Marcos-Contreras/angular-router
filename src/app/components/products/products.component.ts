@@ -15,6 +15,18 @@ export class ProductsComponent {
   products: Product[] = [];
   today = new Date();
   date = new Date(2021, 1, 21);
+  showProductDetail = false;
+  productChosen: Product = {
+    id: '',
+    title: '',
+    images: [],
+    price: 0,
+    description: '',
+    category: {
+      id: '',
+      title: ''
+    }
+  }
 
   // INJECT THE STORE CART SERVICE
   // DEPENDENCY INJECTION ENGINE OF ANGULAR CREATES THE INSTANCE OF THE SERVICE SO WE DO NOT HAVE TO
@@ -39,5 +51,19 @@ export class ProductsComponent {
     this.StoreService.addProduct(product);
     // this.total = this.myShoppingCart.reduce((sum, item) => sum + item.price, 0);
     this.total = this.StoreService.getTotal();
+  }
+
+  toggleProductDetail() {
+    this.showProductDetail = ! this.showProductDetail;
+  }
+
+  onShowDetail(id: string) {
+    this.ProductsService.getProduct(id)
+    .subscribe(response => {
+      console.log('product: ', response);
+      this.toggleProductDetail();
+      this.productChosen = response;
+    });
+
   }
 }
