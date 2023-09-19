@@ -13,6 +13,6 @@ export class ProductsService {
 
   getAllProducts(){
     // TYPE THE REQUEST TO RECEIVE AN ARRAY OF PRODUCTS
-    return this.http.get<Product[]>('https://fakestoreapi.com/products');
+    return this.http.get<Product[]>('https://api.escuelajs.co/api/v1/products/');
   }
 }
