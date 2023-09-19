@@ -26,7 +26,10 @@ export class ProductsComponent {
       id: '',
       title: ''
     }
-  }
+  };
+
+  limit = 10;
+  offset = 0;
 
   // INJECT THE STORE CART SERVICE
   // DEPENDENCY INJECTION ENGINE OF ANGULAR CREATES THE INSTANCE OF THE SERVICE SO WE DO NOT HAVE TO
@@ -39,7 +42,7 @@ export class ProductsComponent {
   }
 
   ngOnInit(): void {
-    this.ProductsService.getAllProducts()
+    this.ProductsService.getAllProducts(this.limit, this.offset)
     .subscribe(data => {
       console.log(data);
       this.products = data;
@@ -105,5 +108,14 @@ export class ProductsComponent {
       this.showProductDetail = false;
     });
 
+  }
+
+  loadMore() {
+    this.ProductsService.getProductsByPage(this.limit, this.offset)
+    .subscribe(response => {
+      console.log(response);
+      this.products = this.products.concat(response);
+      this.offset += this.limit;
+    });
   }
 }

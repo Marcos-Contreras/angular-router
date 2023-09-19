@@ -6,6 +6,8 @@
   [product]="product"
   (addedProduct)="onAddToShoppingCart($event)"
   (showProduct)="onShowDetail($event)" />
+
+  <button (click)="loadMore()">Load more... (10)</button>
 </div>
 
 <div class="product-detail" [class.active]="showProductDetail">
