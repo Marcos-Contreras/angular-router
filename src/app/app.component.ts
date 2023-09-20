@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-
-// import { Product } from './models/product.model';
+import { AuthService } from './services/auth.service';
+import { UsersService } from './services/users.service';
 
 @Component({
   selector: 'app-root',
@@ -10,44 +10,12 @@ import { Component } from '@angular/core';
 export class AppComponent {
   imgParent = '';
   showImage = true;
-  // products: Product[] = [
-  //   {
-  //     id: '1',
-  //     name: 'EL mejor juguete',
-  //     price: 565,
-  //     image: 'https://static.platzi.com/media/user_upload/toy-a0d1c980-a8ce-4fa4-83d6-3b016999a162.jpg'
-  //   },
-  //   {
-  //     id: '2',
-  //     name: 'Bicicleta casi nueva',
-  //     price: 356,
-  //     image: 'https://static.platzi.com/media/user_upload/bike-143dcfe9-3190-49fd-88f7-d3bf74182072.jpg'
-  //   },
-  //   {
-  //     id: '3',
-  //     name: 'Colleción de albumnes',
-  //     price: 34,
-  //     image: 'https://static.platzi.com/media/user_upload/books-80160e05-d177-420b-89c5-01a97b2bdb76.jpg'
-  //   },
-  //   {
-  //     id: '4',
-  //     name: 'Mis libros',
-  //     price: 23,
-  //     image: 'https://static.platzi.com/media/user_upload/album-6f4213d5-1d2d-4e0f-96fe-edb36c3255b4.jpg'
-  //   },
-  //   {
-  //     id: '5',
-  //     name: 'Casita michi',
-  //     price: 125,
-  //     image: 'https://static.platzi.com/media/user_upload/house-034b0c04-eeff-42fa-b506-79f18f73ff90.jpg'
-  //   },
-  //   {
-  //     id: '6',
-  //     name: 'Lentes vintage',
-  //     price: 82,
-  //     image: 'https://static.platzi.com/media/user_upload/glasses-05350737-5831-4c98-be55-824399206dba.jpg'
-  //   },
-  // ];
+  token = '';
+
+  constructor(
+    private authService: AuthService,
+    private usersService: UsersService
+  ) {}
 
   // EVENT THAT RECEIVES THE IMAGE URL FROM CHILD COMPONENT
   onLoaded(img: string) {
@@ -58,5 +26,33 @@ export class AppComponent {
 
   toggleImage() {
     this.showImage = !this.showImage;
+  }
+
+  createUser() {
+    this.usersService.create({
+      name: 'Andres',
+      email: 'andres@mail.com',
+      password: '12345678',
+      avatar: 'https://static.vecteezy.com/system/resources/previews/019/896/008/original/male-user-avatar-icon-in-flat-design-style-person-signs-illustration-png.png',
+      role: 'customer'
+    })
+    .subscribe(response => {
+      console.log(response);
+    });
+  }
+
+  login() {
+    this.authService.login('andres@mail.com', '12345678')
+    .subscribe(response => {
+      console.log(response.access_token);
+      this.token = response.access_token;
+    });
+  }
+
+  getProfile() {
+    this.authService.profile()
+    .subscribe(response => {
+      console.log(response);
+    });
   }
 }
