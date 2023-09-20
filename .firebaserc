@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "angular-components-c6d6f"
-  }
+    "default": "angular-api-1f225",
+    "angular-api": "angular-api-1f225"
+  },
+  "targets": {},
+  "etags": {}
 }
