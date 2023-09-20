@@ -1,6 +1,9 @@
 # AngularComponentsCourse
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.2.
+Project developed based on the Platzi's Angular API course. It uses the Platzi fake API for testing.
+URL to the project with Firebase hosting: https://angular-api-1f225.web.app/
+URL to the Plazi fake API: https://api.escuelajs.co/docs
 
 ## Development server
 
