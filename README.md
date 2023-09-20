@@ -1,4 +1,4 @@
-# AngularComponentsCourse
+# AngularAPI
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.2.
 Project developed based on the Platzi's Angular API course. It uses the Platzi fake API for testing.
