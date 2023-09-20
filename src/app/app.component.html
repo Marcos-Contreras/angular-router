@@ -11,4 +11,9 @@
   <button (click)="downloadPdf()">Download PDF</button>
 </p>
 
+<p>
+  <input type="file" (change)="onUpload($event)">
+  <img *ngIf="uploadedImg" [src]="uploadedImg" alt="">
+</p>
+
 <app-products></app-products>
