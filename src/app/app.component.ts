@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
+import { FilesService } from './services/files.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ export class AppComponent {
 
   constructor(
     private authService: AuthService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private filesService: FilesService
   ) {}
 
   // EVENT THAT RECEIVES THE IMAGE URL FROM CHILD COMPONENT
@@ -54,5 +56,10 @@ export class AppComponent {
     .subscribe(response => {
       console.log(response);
     });
+  }
+
+  downloadPdf() {
+    this.filesService.getFile('myfile.pdf', 'https://young-sands-07814.herokuapp.com/api/files/dummy.pdf', 'application/pdf')
+    .subscribe();
   }
 }
