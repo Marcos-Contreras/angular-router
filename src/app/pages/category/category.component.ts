@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from './../../services/products.service';
 import { Product } from 'src/app/models/product.model';
+// import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-category',
@@ -14,14 +15,15 @@ export class CategoryComponent {
   limit = 10;
   offset = 0;
   products: Product[] = [];
+  productId: string | null = null;
 
   constructor(
-    private activeRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private productsService: ProductsService
   ) { }
 
   ngOnInit(): void {
-    this.activeRoute.paramMap.subscribe(params => {
+    this.activatedRoute.paramMap.subscribe(params => {
       this.categoryId = params.get('id');
       console.log(this.categoryId);
       if(this.categoryId){
@@ -30,7 +32,13 @@ export class CategoryComponent {
           this.products = response;
         })
       }
-    })
+    });
+    this.activatedRoute.queryParamMap.subscribe(params => {
+      // SETTING THE productId VARIABLE TO THE VALUE PASSED FROM QUERYPARAMS
+      // ACTIVATES THE set productId FUNCTION IN THE PRODUCTS COMPONENT FILE
+      this.productId = params.get('product');
+      console.log(this.productId);
+    });
   }
 
   loadMore() {

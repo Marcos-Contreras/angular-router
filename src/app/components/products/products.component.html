@@ -3,11 +3,10 @@
 <p>
 <div class="products--grid">
   <app-product
-  *ngFor="let product of products"
-  [product]="product"
-  (addedProduct)="onAddToShoppingCart($event)"
-  (showProduct)="onShowDetail($event)" />
-
+    *ngFor="let product of products"
+    [product]="product"
+    (addedProduct)="onAddToShoppingCart($event)"
+    (showProduct)="onShowDetail($event)" />
   <button (click)="loadMore()">Load more... (10)</button>
 </div>
 

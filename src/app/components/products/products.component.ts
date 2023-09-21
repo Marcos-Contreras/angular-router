@@ -13,6 +13,12 @@ export class ProductsComponent {
   myShoppingCart: Product[] = [];
   total: number = 0;
   @Input() products: Product[] = [];
+  @Input()
+  set productId(id: string | null) {
+    if(id) {
+      this.onShowDetail(id);
+    }
+  };
   today = new Date();
   date = new Date(2021, 1, 21);
   showProductDetail = false;
