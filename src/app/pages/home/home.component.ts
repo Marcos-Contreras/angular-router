@@ -26,11 +26,11 @@ export class HomeComponent {
   }
 
   loadMore() {
-      this.productsService.getProductsByPage(this.limit, this.offset)
-      .subscribe(response => {
-        console.log(response);
-        this.products = this.products.concat(response);
-        this.offset += this.limit;
-      });
-    }
+    this.productsService.getProductsByPage(this.limit, this.offset + this.limit)
+    .subscribe(response => {
+      console.log(response);
+      this.products = this.products.concat(response);
+      this.offset += this.limit;
+    });
+  }
 }

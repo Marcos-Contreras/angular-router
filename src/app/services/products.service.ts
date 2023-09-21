@@ -10,7 +10,7 @@ import { throwError } from 'rxjs';
 })
 export class ProductsService {
 
-  private apiUrl = environment.API_URL + '/api/v1/products/';
+  private apiUrl = environment.API_URL + '/api/v1';
 
   constructor(
     private http: HttpClient
@@ -23,13 +23,13 @@ export class ProductsService {
      params = params.set('offset', offset);
    }
     // TYPE THE REQUEST TO RECEIVE AN ARRAY OF PRODUCTS
-    return this.http.get<Product[]>(this.apiUrl, {
+    return this.http.get<Product[]>(this.apiUrl + '/products', {
       params
     });
   }
 
   getProduct(id: string) {
-    return this.http.get<Product>(this.apiUrl + id)
+    return this.http.get<Product>(this.apiUrl + '/products/' + id)
     .pipe(
       catchError((error: HttpErrorResponse) => {
         if(error.status === HttpStatusCode.Conflict) {
@@ -48,24 +48,32 @@ export class ProductsService {
 
   // DATA TRANSFER OBJECT
   create(dto: CreateProductDTO) {
-    return this.http.post<Product>(this.apiUrl, dto);
+    return this.http.post<Product>(this.apiUrl + '/products' , dto);
   }
 
   update(id: string, dto: UpdateProductDTO) {
-    return this.http.put<Product>(this.apiUrl + id, dto);
+    return this.http.put<Product>(this.apiUrl + '/products/' + id, dto);
   }
 
   delete(id: string) {
-    return this.http.delete<boolean>(this.apiUrl + id);
+    return this.http.delete<boolean>(this.apiUrl + '/products/' + id);
   }
 
   getProductsByPage(limit: number, offset: number) {
-    return this.http.get<Product[]>(this.apiUrl, {
+    return this.http.get<Product[]>(this.apiUrl + '/products', {
       params: {
         limit,
         offset
       }
     });
+  }
 
+  getByCategory(categoryId: string, limit: number, offset: number) {
+    let params = new HttpParams();
+    if(typeof limit === 'number' && typeof offset === 'number') {
+      params = params.set('limit', limit);
+      params = params.set('offset', offset);
+    }
+    return this.http.get<Product[]>(this.apiUrl + '/categories/' + categoryId + '/products', { params })
   }
 }
