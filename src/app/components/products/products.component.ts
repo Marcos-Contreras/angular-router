@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product, CreateProductDTO, UpdateProductDTO } from './../../models/product.model';
 import { StoreService } from './../../services/store.service';
 import { ProductsService } from './../../services/products.service';
@@ -12,7 +12,7 @@ export class ProductsComponent {
 
   myShoppingCart: Product[] = [];
   total: number = 0;
-  products: Product[] = [];
+  @Input() products: Product[] = [];
   today = new Date();
   date = new Date(2021, 1, 21);
   showProductDetail = false;
@@ -27,11 +27,9 @@ export class ProductsComponent {
       title: ''
     }
   };
-
-  limit = 10;
-  offset = 0;
-
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
+
+  @Output() onLoadMore = new EventEmitter();
 
   // INJECT THE STORE CART SERVICE
   // DEPENDENCY INJECTION ENGINE OF ANGULAR CREATES THE INSTANCE OF THE SERVICE SO WE DO NOT HAVE TO
@@ -41,14 +39,6 @@ export class ProductsComponent {
     private ProductsService: ProductsService
   ) {
     this.myShoppingCart = this.StoreService.getShoppingCart();
-  }
-
-  ngOnInit(): void {
-    this.ProductsService.getAllProducts(this.limit, this.offset)
-    .subscribe(data => {
-      console.log(data);
-      this.products = data;
-    });
   }
 
   onAddToShoppingCart(product: Product){
@@ -119,11 +109,6 @@ export class ProductsComponent {
   }
 
   loadMore() {
-    this.ProductsService.getProductsByPage(this.limit, this.offset)
-    .subscribe(response => {
-      console.log(response);
-      this.products = this.products.concat(response);
-      this.offset += this.limit;
-    });
+    this.onLoadMore.emit();
   }
 }
