@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Product, CreateProductDTO, UpdateProductDTO } from './../../models/product.model';
-import { StoreService } from './../../services/store.service';
-import { ProductsService } from './../../services/products.service';
+import { Product, CreateProductDTO, UpdateProductDTO } from '../../../models/product.model';
+import { StoreService } from '../../../services/store.service';
+import { ProductsService } from '../../../services/products.service';
 
 @Component({
   selector: 'app-products',
