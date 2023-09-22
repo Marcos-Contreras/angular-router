@@ -26,7 +26,11 @@ const routes: Routes = [
       },
       {
         path: 'category',
-        loadChildren: () => import('./pages/category/category.module').then(m =>m.CategoryModule)
+        loadChildren: () => import('./pages/category/category.module').then(m =>m.CategoryModule),
+        // INDICATES THE CATEGORY MODULE SHOULD BE PRELOADED
+        data : {
+          preload: true
+        }
       },
       {
         path: 'products/:id',
