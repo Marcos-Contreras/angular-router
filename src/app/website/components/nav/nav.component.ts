@@ -32,6 +32,11 @@ export class NavComponent {
     });
 
     this.getAllCategories();
+
+    this.authService.user$
+    .subscribe(response => {
+      this.profile = response
+    })
   }
 
   toggleMenu (){
@@ -40,11 +45,12 @@ export class NavComponent {
   }
 
   login() {
-    this.authService.login('andres@mail.com', '12345678')
+    this.authService.login('admin@mail.com', 'admin123')
     .subscribe(response => {
       this.token = response.access_token;
       console.log(this.token);
       this.getProfile();
+      this.router.navigate(['/profile']);
     });
   }
 

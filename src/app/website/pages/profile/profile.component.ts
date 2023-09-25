@@ -17,7 +17,8 @@ export class ProfileComponent {
   ) { }
 
   ngOnInit(): void {
-    this.authService.profile()
+    // LISTENING TO THE user VARIABLE CHANGES IN AuthService SERVICE
+    this.authService.user$
     .subscribe(response => {
       this.user = response;
     });

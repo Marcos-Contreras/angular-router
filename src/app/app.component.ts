@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
 import { FilesService } from './services/files.service';
+import { TokenService } from './services/token.service';
+
 
 @Component({
   selector: 'app-root',
@@ -17,8 +19,21 @@ export class AppComponent {
   constructor(
     private authService: AuthService,
     private usersService: UsersService,
-    private filesService: FilesService
+    private filesService: FilesService,
+    private tokenService: TokenService
   ) {}
+
+  ngOnInit() {
+    const token = this.tokenService.getToken();
+    console.log('ACTUAAAL');
+    console.log(token);
+
+
+    if(token) {
+      this.authService.profile()
+      .subscribe()
+    }
+  }
 
   // EVENT THAT RECEIVES THE IMAGE URL FROM CHILD COMPONENT
   onLoaded(img: string) {

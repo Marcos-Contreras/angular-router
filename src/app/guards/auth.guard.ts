@@ -1,15 +1,28 @@
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { TokenService } from '../services/token.service';
+import { AuthService } from '../services/auth.service';
+import { map } from 'rxjs/operators';
 
 export const authGuard = () => {
-  const tokenService = inject(TokenService);
+  const authService = inject(AuthService);
   const router = inject(Router);
 
-  const token = tokenService.getToken();
-  if(! token) {
-    router.navigate(['/home']);
-    return false;
-  }
-  return true;
+  // const token = authGuard.getToken();
+  // if(! token) {
+  //   router.navigate(['/home']);
+  //   return false;
+  // }
+  // return true;
+
+  // LISTENING TO THE user VARIABLE CHANGES IN AuthService SERVICE
+  return authService.user$
+  .pipe(
+    map(user => {
+      if(user?.role === 'admin') {
+        return true;
+      }
+      router.navigate(['/home']);
+      return false;
+    })
+  )
 };
