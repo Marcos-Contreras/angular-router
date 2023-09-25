@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.2.
 Project developed based on the Platzi's Angular Router course. It uses the Platzi fake API for testing.
-<br/>URL to the project with Firebase hosting: 
+<br/>URL to the project with Firebase hosting: https://angular-router-3b19c.web.app/home
 <br/>URL to the Plazi fake API: https://api.escuelajs.co/docs
 
 ## Development server
