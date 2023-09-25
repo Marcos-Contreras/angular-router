@@ -10,7 +10,8 @@ import { RecoveryComponent } from './pages/recovery/recovery.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 
-import { authGuard } from './../guards/auth.guard'
+import { authGuard } from './../guards/auth.guard';
+import { exitGuard } from './../guards/exit.guard';
 
 const routes: Routes = [
   {
@@ -42,6 +43,12 @@ const routes: Routes = [
         path: 'profile',
         canActivate: [ authGuard ],
         component: ProfileComponent
+      },
+      {
+        path: 'register',
+        // CHECK IF THE USER IS SURE ABOUT LEAVING THE PAGE WITH exitGuard
+        canDeactivate: [ exitGuard ],
+        component: RegisterComponent
       },
     ]
   },
